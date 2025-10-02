@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5@c@4zw!f)6bc@v()_!8dls$%9miq$i=3-2x*+s8fo2aburp%e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'CorTextCore',
+    'rest_framework',
+    'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -74,8 +79,12 @@ WSGI_APPLICATION = 'CorTextCore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'CorText_DataBase',
+        'USER': 'keith_user',
+        'PASSWORD': '113728cortes',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
