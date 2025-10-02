@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-5@c@4zw!f)6bc@v()_!8dls$%9miq$i=3-2x*+s8fo2aburp%e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.56.1']
 
 # Application definition
 
@@ -40,8 +39,6 @@ INSTALLED_APPS = [
     
     'CorTextCore',
     'rest_framework',
-    'corsheaders',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +50,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+INSTALLED_APPS += ['corsheaders']
+MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://192.168.56.1:3000"
+]
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'CorTextCore.urls'
 
