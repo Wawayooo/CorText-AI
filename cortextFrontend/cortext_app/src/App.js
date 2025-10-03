@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './cortextPages/home';
 import SubscribePage from './cortextPages/subscribe';
 import DocsPage from './cortextPages/docs';
-import LoginPage from './cortextPages/login';
+import Login from './cortextPages/login';
+import Signup from './cortextPages/signup';
+import AdminLogin from './cortextPages/adminlogin';
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/docs" element={<DocsPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
     </Router>
   );

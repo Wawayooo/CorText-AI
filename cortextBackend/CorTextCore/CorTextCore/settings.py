@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'CorTextCore',
+    'CorText',
     'rest_framework',
 ]
 
@@ -94,6 +94,8 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'CorText.CustomUser'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -135,3 +137,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Use session-based authentication
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set session expiry to 3 days (in seconds)
+SESSION_COOKIE_AGE = 3 * 24 * 60 * 60  # 259200 seconds
+
+# Optional: Make session expire when browser closes (False = persistent)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# Optional: Secure session cookie
+SESSION_COOKIE_SECURE = True  # Only if using HTTPS
+SESSION_COOKIE_HTTPONLY = True
