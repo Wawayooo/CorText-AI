@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
+      <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem', color: '#4B9CD3' }}>HOMEPAGE</div>
       <h1>Welcome to CorText AI</h1>
       <p>Your filipino clinical assistant for safe, semantic medicine suggestions.</p>
 

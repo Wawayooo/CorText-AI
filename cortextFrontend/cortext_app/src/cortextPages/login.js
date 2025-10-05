@@ -4,9 +4,97 @@ import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
+
+const inputStyle = {
+  width: '100%',
+  padding: '0.75rem 1rem',
+  marginBottom: '1rem',
+  borderRadius: '6px',
+  border: '1px solid #191717ff',
+  fontSize: '1rem',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  color: 'black',
+  outline: 'none',
+  transition: 'all 0.3s ease',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  backdropFilter: 'blur(10px)',
+  WebkitBackdropFilter: 'blur(10px)',
+  // Add focus styles
+  '&:focus': { borderColor: '#ffffffff', boxShadow: '0 0 0 3px rgba(39, 157, 190, 0.3)' }
+};
+
+const MotionButton = motion(styled.button`
+  width: 50%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+
+  &:hover { background-color: #1288a9ff; color: white; font-size: 1.05rem; }
+  &:active { background-color: #0a69d5ff;}
+  transition: all 0.3s ease;
+`);
+
+const FooterContainer = styled.div`
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: #d1d5db; /* Tailwind's gray-300 */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const NavButton = styled.button`
+  background: transparent;
+  border: none;
+  font-weight: 500;
+  color: black; /* Tailwind's gray-200 */
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #a855f7; /* Tailwind's purple-500 */
+    text-decoration: underline;
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.4);
+  }
+`;
+
+const LinkButton = styled.button`
+  background: transparent;
+  border: none;
+  font-weight: 500;
+  color: #93c5fd; /* Tailwind's blue-300 */
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #3b82f6; /* Tailwind's blue-500 */
+    text-decoration: underline;
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+  }
+`;
+
 const MotionNavButton = motion(NavButton);
 const MotionLinkButton = motion(LinkButton);
-
 
 export default function Login({ onMagicRedirect }) {
   const [email, setEmail] = useState('');
@@ -55,7 +143,7 @@ export default function Login({ onMagicRedirect }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        style={{ width: '100%', maxWidth: '600px', padding: '3.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' }}
+        style={{ width: '100%', maxWidth: '600px', padding: '3.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', backgroundColor: '#ffffffff', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' }}
       >
         <div className="w-full max-w-md bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-white border border-white/10" style={{ width: '100%', maxWidth: '500px', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <h2 className="text-4xl font-bold text-center mb-8 tracking-wide text-white drop-shadow-md">
@@ -103,15 +191,15 @@ export default function Login({ onMagicRedirect }) {
           )}
 
           <FooterContainer>
-            <NavButton onClick={() => navigate('/')}>
-              Go to Home
-            </NavButton>
             <p>
               Need an account?{' '}
               <LinkButton onClick={() => navigate('/signup')}>
                 Create Account
               </LinkButton>
             </p>
+            <NavButton onClick={() => navigate('/')}>
+              Go to Homepage
+            </NavButton>
           </FooterContainer>
 
         </div>
