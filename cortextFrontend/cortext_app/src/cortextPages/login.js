@@ -14,6 +14,7 @@ export default function Login({ onMagicRedirect }) {
     setError('');
     if (!email || !password) {
       setError('Please enter both email and password.');
+      alert('Please enter both email and password.');
       setLoading(false);
       return;
     }
@@ -61,6 +62,7 @@ export default function Login({ onMagicRedirect }) {
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
+            style={inputStyle}
           />
           <input
             type="password"
@@ -69,6 +71,7 @@ export default function Login({ onMagicRedirect }) {
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
+            style={inputStyle}
           />
           <motion.button
             whileHover={{ scale: 1.03 }}
@@ -123,5 +126,18 @@ const buttonStyle = {
   border: 'none',
   cursor: 'pointer',
   boxShadow: '0 4px 12px rgba(75, 156, 211, 0.4)',
+  transition: 'all 0.3s ease'
+};
+
+const inputStyle = {
+  width: '100%',
+  padding: '0.75rem 1rem',
+  marginBottom: '1rem',
+  borderRadius: '6px',
+  border: '1px solid #ccc',
+  fontSize: '1rem',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  color: 'white',
+  outline: 'none',
   transition: 'all 0.3s ease'
 };

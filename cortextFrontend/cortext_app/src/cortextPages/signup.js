@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, set2ndPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     if (!email || !password) {
@@ -24,6 +26,11 @@ export default function Signup() {
 
     if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
       alert('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
+      return;
+    }
+
+    if (password !== password2) {
+      alert('Passwords do not match.');
       return;
     }
 
@@ -54,13 +61,15 @@ export default function Signup() {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }}
     >
       <div className="bg-white/5 backdrop-blur-lg p-8 rounded-xl shadow-xl w-full max-w-md text-white">
-        <h2 className="text-2xl font-bold mb-6 text-center">Create Account</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center"
+          style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
         <input
           type="email"
           placeholder="Email"
           className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          style={inputStyle}
         />
         <input
           type="password"
@@ -68,17 +77,22 @@ export default function Signup() {
           className="w-full p-3 mb-6 bg-white/10 rounded-md focus:outline-none"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          style={inputStyle}
         />
 
         <input
           type="password"
           placeholder="Confirm Password"
           className="w-full p-3 mb-6 bg-white/10 rounded-md focus:outline-none"
+          onChange={e => set2ndPassword(e.target.value)}
+          value={password2}
+          style={inputStyle}
         />
 
         <button
           onClick={handleSignup}
           className="w-full py-3 bg-green-600 hover:bg-green-700 rounded-md font-semibold transition"
+          style={buttonStyle}
         >
           Sign Up
         </button>
@@ -92,3 +106,28 @@ export default function Signup() {
     </motion.div>
   );
 }
+
+const inputStyle = {
+  width: '100%',
+  padding: '0.75rem 1rem',
+  marginBottom: '1rem',
+  borderRadius: '6px',
+  border: '1px solid #ccc',
+  fontSize: '1rem',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  color: 'white',
+  outline: 'none',
+  transition: 'all 0.3s ease'
+};
+const buttonStyle = {
+  width: '100%',
+  padding: '0.75rem 1rem',
+  marginBottom: '1rem',
+  borderRadius: '6px',
+  border: '1px solid #ccc',
+  fontSize: '1rem',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  color: 'white',
+  outline: 'none',
+  transition: 'all 0.3s ease'
+};

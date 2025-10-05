@@ -13,9 +13,15 @@ export default function AdminLogin() {
       body: JSON.stringify({ username, password })
     });
 
+    if (!res.ok) {
+      alert('Network response was not ok');
+      return;
+    }
+
     const data = await res.json();
     if (data.message === 'Admin fully authenticated') {
       // Redirect to admin dashboard
+      window.location.href = '/adminDashboard';
     } else {
       alert(data.error);
     }
