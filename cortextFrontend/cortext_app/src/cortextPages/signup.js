@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { hover, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -58,54 +59,57 @@ export default function Signup() {
   };
 
   return (
-    <motion.div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black"
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-    >
-      <div className="bg-white/5 backdrop-blur-lg p-8 rounded-xl shadow-xl w-full max-w-md text-white" style={{ padding: '5rem', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' , width: '100%', maxWidth: '600px', height: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-        <h2 className="text-2xl font-bold mb-6 text-center"
-          style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          style={inputStyle}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-3 mb-6 bg-white/10 rounded-md focus:outline-none"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          style={inputStyle}
-        />
+    <div className="flex items-center justify-center min-h-screen w-screen" style={{ background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw' }}>
+      <motion.div
+        className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+      >
+        <div className="bg-white/5 backdrop-blur-lg p-8 rounded-xl shadow-xl w-full max-w-md text-white" style={{ padding: '5rem', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' , width: '100%', maxWidth: '600px', height: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <h2 className="text-2xl font-bold mb-6 text-center"
+            style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
+          <input
+            type="email"  
+            placeholder="Email"
+            className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-3 mb-6 bg-white/10 rounded-md focus:outline-none"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            style={inputStyle}
+          />
 
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          className="w-full p-3 mb-6 bg-white/10 rounded-md focus:outline-none"
-          onChange={e => set2ndPassword(e.target.value)}
-          value={password2}
-          style={inputStyle}
-        />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            className="w-full p-3 mb-6 bg-white/10 rounded-md focus:outline-none"
+            onChange={e => set2ndPassword(e.target.value)}
+            value={password2}
+            style={inputStyle}
+          />
 
-        <button
-          onClick={handleSignup}
-          className="w-full py-3 bg-green-600 hover:bg-green-700 rounded-md font-semibold transition"
-          style={buttonStyle}
-        >
-          Sign Up
-        </button>
-        <p className="mt-4 text-center">
-          Already have an account?{' '}
-          <a href="/login" className="text-blue-500 hover:underline">
-            Log In
-          </a>
-        </p>
-      </div>
-    </motion.div>
+          <MotionButton
+            onClick={handleSignup}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Sign Up
+          </MotionButton>
+
+          <p className="mt-4 text-center">
+            Already have an account?{' '}
+            <a href="/login" className="text-blue-500 hover:underline">
+              Log In
+            </a>
+          </p>
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -121,20 +125,19 @@ const inputStyle = {
   outline: 'none',
   transition: 'all 0.3s ease'
 };
-const buttonStyle = styled.button`{
-  width: '50%',
-  padding: '0.75rem 1rem',
-  marginBottom: '1rem',
-  borderRadius: '6px',
-  border: '1px solid #ccc',
-  fontSize: '1rem',
-  backgroundColor: 'black',
-  color: 'white',
-  outline: 'none',
-  transition: 'all 0.3s ease'
+
+const MotionButton = motion(styled.button`
+  width: 50%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
   cursor: pointer;
-  &:hover {
-    background-color: #22a1e5ff;
-    color: black;
-  }
-}`;
+
+  &:hover { background-color: #1288a9ff; color: white; font-size: 1.05rem; }
+  &:active { background-color: #0a69d5ff;}
+  transition: all 0.3s ease;
+`);
