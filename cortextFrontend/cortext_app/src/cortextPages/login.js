@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
+import styled from 'styled-components';
+
+const MotionNavButton = motion(NavButton);
+const MotionLinkButton = motion(LinkButton);
+
+
 export default function Login({ onMagicRedirect }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,101 +49,74 @@ export default function Login({ onMagicRedirect }) {
   };
 
   return (
-    <motion.div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f0f0f] to-[#1a1a1a] px-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="w-full max-w-md bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-white border border-white/10">
-        <h2 className="text-4xl font-bold text-center mb-8 tracking-wide text-white drop-shadow-md">
-          Welcome Back
-        </h2>
+     <div className="flex items-center justify-center min-h-screen w-screen" style={{ background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw' }}>
+      <motion.div
+        className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f0f0f] to-[#1a1a1a] px-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        style={{ width: '100%', maxWidth: '600px', padding: '3.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' }}
+      >
+        <div className="w-full max-w-md bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-white border border-white/10" style={{ width: '100%', maxWidth: '500px', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <h2 className="text-4xl font-bold text-center mb-8 tracking-wide text-white drop-shadow-md">
+            Welcome Back
+          </h2>
 
-        <div className="space-y-6">
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full px-4 py-3 bg-white/10 rounded-lg placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 shadow-sm"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-            style={inputStyle}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full px-4 py-3 bg-white/10 rounded-lg placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 shadow-sm"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-            style={inputStyle}
-          />
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={handleLogin}
-            disabled={loading}
-            style={buttonStyle}
-            className={`w-full py-3 rounded-lg font-semibold text-white shadow-md transition duration-300 ${
-              loading
-                ? 'bg-gray-500 cursor-not-allowed'
-                : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'
-            }`}
-          >
-            {loading ? 'Logging in...' : 'Log In'}
-          </motion.button>
-        </div>
-
-        {error && (
-          <div className="mt-4 text-red-400 text-sm text-center">
-            {error}
-          </div>
-        )}
-
-        <div className="mt-8 text-sm text-gray-300 flex flex-col gap-4 items-center">
-          <button
-            onClick={() => navigate('/')}
-            className="hover:underline hover:text-purple-400 transition font-medium"
-          >
-            Go to Home
-          </button>
-          <p>
-            Need an account?{' '}
-            <button
-              onClick={() => navigate('/signup')}
-              className="text-blue-400 hover:underline hover:text-blue-500 transition font-medium"
+          <div className="space-y-6" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full px-4 py-3 bg-white/10 rounded-lg placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 shadow-sm"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              style={inputStyle}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 bg-white/10 rounded-lg placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 shadow-sm"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              style={inputStyle}
+            />
+            <MotionButton
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={handleLogin}
+              disabled={loading}
+              className={`w-full py-3 rounded-lg font-semibold text-white shadow-md transition duration-300 ${
+                loading
+                  ? 'bg-gray-500 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'
+              }`}
             >
-              Create Account
-            </button>
-          </p>
+              {loading ? 'Logging in...' : 'Log In'}
+            </MotionButton>
+          </div>
+
+          {error && (
+            <div className="mt-4 text-red-400 text-sm text-center">
+              {error}
+            </div>
+          )}
+
+          <FooterContainer>
+            <NavButton onClick={() => navigate('/')}>
+              Go to Home
+            </NavButton>
+            <p>
+              Need an account?{' '}
+              <LinkButton onClick={() => navigate('/signup')}>
+                Create Account
+              </LinkButton>
+            </p>
+          </FooterContainer>
+
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
-const buttonStyle = {
-  padding: '0.75rem 1.5rem',
-  fontSize: '0.95rem',
-  borderRadius: '6px',
-  backgroundColor: '#4B9CD3',
-  color: 'white',
-  border: 'none',
-  cursor: 'pointer',
-  boxShadow: '0 4px 12px rgba(75, 156, 211, 0.4)',
-  transition: 'all 0.3s ease'
-};
-
-const inputStyle = {
-  width: '100%',
-  padding: '0.75rem 1rem',
-  marginBottom: '1rem',
-  borderRadius: '6px',
-  border: '1px solid #ccc',
-  fontSize: '1rem',
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  color: 'white',
-  outline: 'none',
-  transition: 'all 0.3s ease'
-};

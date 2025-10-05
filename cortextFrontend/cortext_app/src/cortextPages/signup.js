@@ -64,7 +64,7 @@ export default function Signup() {
         className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
       >
-        <div className="bg-white/5 backdrop-blur-lg p-8 rounded-xl shadow-xl w-full max-w-md text-white" style={{ padding: '5rem', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' , width: '100%', maxWidth: '600px', height: 'auto', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <div className="bg-white/5 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-md text-white" style={{ padding: '5rem', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' , width: '100%', maxWidth: '600px', height: 'auto', backgroundColor: 'skyblue', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
           <h2 className="text-2xl font-bold mb-6 text-center"
             style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
           <input
@@ -118,12 +118,17 @@ const inputStyle = {
   padding: '0.75rem 1rem',
   marginBottom: '1rem',
   borderRadius: '6px',
-  border: '1px solid #ccc',
+  border: '1px solid #191717ff',
   fontSize: '1rem',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  color: 'white',
+  color: 'black',
   outline: 'none',
-  transition: 'all 0.3s ease'
+  transition: 'all 0.3s ease',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  backdropFilter: 'blur(10px)',
+  WebkitBackdropFilter: 'blur(10px)',
+  // Add focus styles
+  '&:focus': { borderColor: '#ffffffff', boxShadow: '0 0 0 3px rgba(39, 157, 190, 0.3)' }
 };
 
 const MotionButton = motion(styled.button`
