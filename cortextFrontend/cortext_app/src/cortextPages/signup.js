@@ -7,6 +7,26 @@ export default function Signup() {
   const [password, setPassword] = useState('');
 
   const handleSignup = async () => {
+    if (!email || !password) {
+      alert('Please enter both email and password.');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    if (password.length < 8) {
+      alert('Password must be at least 8 characters long.');
+      return;
+    }
+
+    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
+      alert('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
+      return;
+    }
+
     const res = await fetch('/api/signup/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -18,26 +38,6 @@ export default function Signup() {
 
     if (data.error) {
       alert(data.error);
-      return;
-    }
-
-    if (password.length < 8) {
-      alert('Password must be at least 8 characters long.');
-      return;
-    }
-
-    if (!email || !password) {
-      alert('Please enter both email and password.');
-      return;
-    }
-
-    if (!email.includes('@')) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
-      alert('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
       return;
     }
 
