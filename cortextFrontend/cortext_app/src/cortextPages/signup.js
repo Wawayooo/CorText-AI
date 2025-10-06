@@ -12,7 +12,7 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const handleSignup = async () => {
-    if (!email || !password) {
+    if (!email || !password || !password2) {
       alert('Please enter both email and password.');
       return;
     }
@@ -37,7 +37,7 @@ export default function Signup() {
       return;
     }
 
-    const res = await fetch('http://localhost:3000/api/signup/', {
+    const res = await fetch('http://192.168.56.1:8000/api/signup/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
