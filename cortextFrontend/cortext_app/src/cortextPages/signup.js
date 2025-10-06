@@ -37,11 +37,11 @@ export default function Signup() {
       return;
     }
 
-    const res = await fetch('/api/signup/', {
+    const res = await fetch('http://localhost:3000/api/signup/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, password2 })
     });
 
     const data = await res.json();
@@ -113,7 +113,7 @@ export default function Signup() {
   );
 }
 
-const MotionDivStyle = {
+const MainDivStyle = {
   background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw'
 }
 
