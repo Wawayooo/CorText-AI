@@ -20,7 +20,8 @@ const inputStyle = {
   backdropFilter: 'blur(10px)',
   WebkitBackdropFilter: 'blur(10px)',
   // Add focus styles
-  '&:focus': { borderColor: '#ffffffff', boxShadow: '0 0 0 3px rgba(39, 157, 190, 0.3)' }
+  '&:focus': { borderColor: '#ffffffff', boxShadow: '0 0 0 3px rgba(39, 157, 190, 0.3)' },
+  '&:hover': { borderColor: '#756f6fff' }
 };
 
 const MotionButton = motion(styled.button`
