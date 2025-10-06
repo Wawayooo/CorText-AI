@@ -59,12 +59,12 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-screen" style={{ background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw' }}>
+    <div className="flex items-center justify-center min-h-screen w-screen" style={MainDivStyle}>
       <motion.div
         className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
       >
-        <div className="bg-white/5 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-md text-white" style={{backgroundColor: '#ffffffff', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '600px', height: 'auto', padding: '4rem', borderRadius: '15px', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)'}}>
+        <div className="bg-white/5 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-md text-white" style={InnerDivStyle}>
           <h2 className="text-2xl font-bold mb-6 text-center"
             style={{ color: 'skyblue', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
           <input
@@ -111,6 +111,14 @@ export default function Signup() {
       </motion.div>
     </div>
   );
+}
+
+const MotionDivStyle = {
+  background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw'
+}
+
+const InnerDivStyle = {
+  backgroundColor: '#ffffffff', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '600px', height: 'auto', padding: '4rem', borderRadius: '15px', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)'
 }
 
 const inputStyle = {
