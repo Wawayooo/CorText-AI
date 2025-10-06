@@ -8,5 +8,8 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     
+    is_admin = models.BooleanField(default=False)
+    is_admin_magic = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.email

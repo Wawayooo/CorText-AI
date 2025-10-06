@@ -32,6 +32,7 @@ def signup_view(request):
         if not any(char.isdigit() for char in password):
             return JsonResponse({'error': 'Password must contain at least one number'}, status=400)
 
+        # Generate unique username from email
         base_username = email.split('@')[0]
         username = base_username
         counter = 1
@@ -39,7 +40,6 @@ def signup_view(request):
             username = f"{base_username}{counter}"
             counter += 1
 
-        # Create user
         user = CustomUser.objects.create_user(
             email=email,
             password=password,
@@ -72,8 +72,8 @@ def login_view(request):
             return JsonResponse({'error': 'Email not found or Unknown Email'}, status=404)
 
         if check_password(password, user.password):
-            # Detect magic email flow
-            if user.email == 'magic@cortext.ai':
+            if user.is_admin_magic:
+                request.session['magic_verified'] = True
                 return JsonResponse({'step': 'admin_auth_required'})
             else:
                 login(request, user)
@@ -84,6 +84,7 @@ def login_view(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+
 @csrf_exempt
 def admin_login_view(request):
     """
@@ -93,6 +94,9 @@ def admin_login_view(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+    if not request.session.get('magic_verified'):
+        return JsonResponse({'error': 'Magic login required'}, status=403)
+
     try:
         data = json.loads(request.body)
         username = data.get('username')
@@ -101,24 +105,21 @@ def admin_login_view(request):
         if not username or not password:
             return JsonResponse({'error': 'Username and password are required'}, status=400)
 
-        # Authenticate using username (not email)
         user = authenticate(request, username=username, password=password)
 
-        if user is None:
+        if user is None or not user.is_admin:
             return JsonResponse({'error': 'Invalid admin credentials'}, status=403)
 
         login(request, user)
+        del request.session['magic_verified']
         return JsonResponse({'message': 'Admin fully authenticated'})
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-
-
 @login_required
 def check_auth(request):
     return JsonResponse({'authenticated': True})
-
 
 @csrf_exempt
 def logout_view(request):
