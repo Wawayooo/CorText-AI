@@ -13,6 +13,20 @@ const MainDivStyle = {
   width: '100vw'
 }
 
+const MotionDivStyle = {
+  width: '100%', 
+  maxWidth: '600px', 
+  padding: '3.5rem', 
+  display: 'flex', 
+  alignItems: 'center', 
+  justifyContent: 'center', 
+  height: 'auto', 
+  backgroundColor: '#ffffffff', 
+  borderRadius: '1rem', 
+  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', 
+  border: '1px solid rgba(255, 255, 255, 0.3)'
+}
+
 const inputStyle = {
   width: '100%',
   padding: '0.75rem 1rem',
@@ -152,7 +166,7 @@ export default function Login({ onMagicRedirect }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        style={{ width: '100%', maxWidth: '600px', padding: '3.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 'auto', backgroundColor: '#ffffffff', borderRadius: '1rem', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.3)' }}
+        style={MotionDivStyle}
       >
         <div className="w-full max-w-md bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-white border border-white/10" style={{ width: '100%', maxWidth: '500px', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <h2 className="text-4xl font-bold text-center mb-8 tracking-wide text-white drop-shadow-md">
