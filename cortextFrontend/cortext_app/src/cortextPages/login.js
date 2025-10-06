@@ -4,6 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
+const MainDivStyle = {
+  background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', 
+  display: 'flex', 
+  alignItems: 'center', 
+  justifyContent: 'center', 
+  height: '100vh', 
+  width: '100vw'
+}
 
 const inputStyle = {
   width: '100%',
@@ -138,7 +146,7 @@ export default function Login({ onMagicRedirect }) {
   };
 
   return (
-     <div className="flex items-center justify-center min-h-screen w-screen" style={{ background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw' }}>
+     <div className="flex items-center justify-center min-h-screen w-screen" style={MainDivStyle}>
       <motion.div
         className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f0f0f] to-[#1a1a1a] px-4"
         initial={{ opacity: 0 }}
