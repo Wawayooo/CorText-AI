@@ -56,8 +56,9 @@ MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://192.168.56.1:3000"
+    "http://192.168.56.1:8000"
 ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'CorTextCore.urls'
