@@ -6,6 +6,7 @@ import DocsPage from './cortextPages/docs';
 import Login from './cortextPages/login';
 import Signup from './cortextPages/signup';
 import AdminLogin from './cortextPages/adminlogin';
+import AdminDash from './cortextPages/adminDash';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={<AdminDash />} />
       </Routes>
     </Router>
   );
