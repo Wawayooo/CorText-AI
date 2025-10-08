@@ -21,7 +21,7 @@ def signup_view(request):
         age = request.POST.get('age')
         gender = request.POST.get('gender')
         address = request.POST.get('address')
-        profile_image = request.FILES.get('profile_image')  # 👈 image file
+        profile_image = request.FILES.get('profile_image')
 
         if not email or not password:
             return JsonResponse({'error': 'Email and password are required'}, status=400)
