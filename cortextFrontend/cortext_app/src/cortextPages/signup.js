@@ -12,8 +12,7 @@ export default function Signup() {
   const [gender, setGender] = useState('');
   const [address, setAddress] = useState('');
   const [profile_image, setProfileImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('./img/profile.webp'); // your default image path
-
+  const [previewUrl, setPreviewUrl] = useState('https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg'); // default placeholder image
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
