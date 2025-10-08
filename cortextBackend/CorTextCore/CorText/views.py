@@ -60,9 +60,6 @@ def signup_view(request):
 
 @csrf_exempt
 def login_view(request):
-    """
-    Regular user login using email + password.
-    """
     if request.method != 'POST':
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
@@ -75,6 +72,10 @@ def login_view(request):
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
             return JsonResponse({'error': 'Email not found'}, status=404)
+
+        # 🔐 Check for admin redirect condition
+        if email == 'cortextai@admin.com' and user.is_admin:
+            return JsonResponse({'step': 'admin_auth_required'})
 
         if check_password(password, user.password):
             login(request, user)
