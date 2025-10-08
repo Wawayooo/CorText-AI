@@ -37,13 +37,13 @@ def signup_view(request):
         username = base_username
         counter = 1
         while CustomUser.objects.filter(username=username).exists():
-            username = f"{base_username}{counter}"
+            username = f"#{base_username}${counter}"
             counter += 1
 
         user = CustomUser.objects.create_user(
+            username=username,
             email=email,
-            password=password,
-            username=username
+            password=password
         )
 
         return JsonResponse({'message': 'User created successfully', 'username': username})

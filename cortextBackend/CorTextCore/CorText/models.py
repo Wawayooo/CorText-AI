@@ -1,9 +1,28 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-class CustomUser(AbstractUser):
-    username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None):
+        if not email:
+            raise ValueError("Email is required")
+        email = self.normalize_email(email)
+        user = self.model(email=email)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField(default=18)
+    gender = models.CharField(max_length=50)
+    address = models.TextField(blank=True, null=True)
+    profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True)
+    
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=200)
+    
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -13,3 +32,10 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.email
+
+class ManualAdmin(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    password = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.username
