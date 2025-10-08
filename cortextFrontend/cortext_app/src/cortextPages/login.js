@@ -116,9 +116,6 @@ const LinkButton = styled.button`
   }
 `;
 
-const MotionNavButton = motion(NavButton);
-const MotionLinkButton = motion(LinkButton);
-
 export default function Login({ onMagicRedirect }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -150,11 +147,11 @@ export default function Login({ onMagicRedirect }) {
       if (data.step === 'admin_auth_required') {
         // Optional: show cinematic feedback
         alert('Magic admin detected. Redirecting to secure login...');
-        navigate('/admin-login'); // or call onMagicRedirect()
+        navigate('/adminlogin'); // or call onMagicRedirect()
       } else if (data.message === 'User logged in') {
         navigate('/subscribe');
       } else {
-        setError(data.error || 'Login failed');
+        setError('Login failed. Please check your credentials.');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');

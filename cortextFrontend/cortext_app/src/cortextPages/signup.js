@@ -6,6 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Signup() {
+  const [first_name, setFname] = useState('');
+  const [last_name, setLname] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [address, setAddress] = useState('');
+  const [profile_image, setProfileImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('/default-avatar.png'); // your default image path
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, set2ndPassword] = useState('');
@@ -37,24 +46,30 @@ export default function Signup() {
       return;
     }
 
-    const res = await fetch('http://192.168.56.1:8000/api/signup/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ email, password, password2 })
-    });
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('first_name', first_name);
+    formData.append('last_name', last_name);
+    formData.append('age', age);
+    formData.append('gender', gender);
+    formData.append('address', address);
+    formData.append('profile_image', profile_image);
 
-    const data = await res.json();
+    try {
+      const response = await fetch('http://192.168.56.1:8000/api/signup/', {
+        method: 'POST',
+        body: formData
+      });
 
-    if (data.error) {
-      alert(data.error);
-      return;
-    }
-
-    if (data.message === 'User created successfully') {
-      alert('Signup successful! You can now log in.');
-    } else {
-      alert(data.error);
+      if (response.ok) {
+        navigate('/login');
+      } else {
+        alert('Sign-up failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('An error occurred while signing up. Please try again.');
     }
   };
 
@@ -67,6 +82,60 @@ export default function Signup() {
         <div className="bg-white/5 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-md text-white" style={InnerDivStyle}>
           <h2 className="text-2xl font-bold mb-6 text-center"
             style={{ color: 'skyblue', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
+          
+          <input
+            type="file"
+            accept="image/*"
+            onChange={e => setProfileImage(e.target.files[0])}
+          />
+
+          <input
+            type="text"
+            placeholder="First Name"
+            className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
+            value={first_name}
+            onChange={e => setFname(e.target.value)}
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
+            value={last_name}
+            onChange={e => setLname(e.target.value)}
+            style={inputStyle}
+          />
+
+          <input
+            type="number"
+            placeholder="Age"
+            className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
+            value={age}
+            onChange={e => setAge(e.target.value)}
+            style={inputStyle}
+          />
+          
+          <select
+            className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none text-white"
+            value={gender}
+            onChange={e => setGender(e.target.value)}
+            style={inputStyle}
+          >
+            <option value="" disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="Address"
+            className="w-full p-3 mb-4 bg-white/10 rounded-md focus:outline-none"
+            value={address}
+            onChange={e => setAddress(e.target.value)}
+            style={inputStyle}
+          />
+
           <input
             type="email"  
             placeholder="Email"
@@ -114,7 +183,7 @@ export default function Signup() {
 }
 
 const MainDivStyle = {
-  background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw'
+  background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', width: '100vw', overflow: 'scroll', paddingBottom: '2rem', paddingTop: '2rem'
 }
 
 const InnerDivStyle = {
