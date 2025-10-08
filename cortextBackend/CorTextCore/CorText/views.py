@@ -14,14 +14,14 @@ def signup_view(request):
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
     try:
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        age = request.POST.get('age')
-        gender = request.POST.get('gender')
-        address = request.POST.get('address')
-        profile_image = request.FILES.get('profile_image')
+        email = request.POST.get('email', default=None)
+        password = request.POST.get('password', default=None)
+        first_name = request.POST.get('first_name', default=None)
+        last_name = request.POST.get('last_name', default=None)
+        age = request.POST.get('age', default=18)
+        gender = request.POST.get('gender', default=None)
+        address = request.POST.get('address', default=None)
+        profile_image = request.FILES.get('profile_image', default=None)
 
         if not email or not password:
             return JsonResponse({'error': 'Email and password are required'}, status=400)
