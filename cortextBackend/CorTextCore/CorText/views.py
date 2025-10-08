@@ -18,6 +18,15 @@ def signup_view(request):
         email = data.get('email')
         password = data.get('password')
 
+        first_name = data.get('first_name', '')
+        last_name = data.get('last_name', '')
+        age = data.get('age', 18)
+        gender = data.get('gender', '')
+        address = data.get('address', '')
+        
+        profile_image = request.FILES.get('profile_image')
+
+
         if not email or not password:
             return JsonResponse({'error': 'Email and password are required'}, status=400)
 
@@ -34,12 +43,24 @@ def signup_view(request):
         if not any(char.isdigit() for char in password):
             return JsonResponse({'error': 'Password must contain at least one number'}, status=400)
 
-        user = CustomUser.objects.create_user(email=email, password=password)
+        user = CustomUser.objects.create_user(
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            age=age,
+            gender=gender,
+            address=address
+        )
+        
+        if profile_image:
+            user.profile_image = profile_image
+            user.save()
+
         return JsonResponse({'message': 'User created successfully'})
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-
 
 @csrf_exempt
 def login_view(request):
