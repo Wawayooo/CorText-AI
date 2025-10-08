@@ -13,6 +13,23 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 
+# Use session-based authentication
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+
+# Set session expiry to 3 days (in seconds)
+SESSION_COOKIE_AGE = 3 * 24 * 60 * 60  # 259200 seconds
+
+# Optional: Make session expire when browser closes (False = persistent)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True  # Use False only for local dev without HTTPS
+SESSION_COOKIE_HTTPONLY = True
+
+CORS_ALLOW_CREDENTIALS = True
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -65,9 +82,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://192.168.56.1:8000"
 ]
-
-CORS_ALLOW_CREDENTIALS = True
-
 
 ROOT_URLCONF = 'CorTextCore.urls'
 
@@ -151,17 +165,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Use session-based authentication
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-SESSION_COOKIE_SECURE = False
-
-# Set session expiry to 3 days (in seconds)
-SESSION_COOKIE_AGE = 3 * 24 * 60 * 60  # 259200 seconds
-
-# Optional: Make session expire when browser closes (False = persistent)
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-# Optional: Secure session cookie
-SESSION_COOKIE_SECURE = True  # Only if using HTTPS
-SESSION_COOKIE_HTTPONLY = True

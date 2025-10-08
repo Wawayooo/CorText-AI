@@ -112,7 +112,7 @@ def admin_login_view(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@login_required
+@csrf_exempt
 def check_auth(request):
     if request.user.is_authenticated:
         return JsonResponse({'authenticated': True})
