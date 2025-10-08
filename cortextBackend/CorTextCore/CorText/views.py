@@ -118,6 +118,7 @@ def check_auth(request):
     return JsonResponse({'authenticated': True})
 
 @csrf_exempt
+@login_required
 def logout_view(request):
     logout(request)
     return JsonResponse({'message': 'Logged out'})
