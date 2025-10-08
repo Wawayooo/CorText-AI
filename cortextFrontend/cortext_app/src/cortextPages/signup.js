@@ -12,7 +12,7 @@ export default function Signup() {
   const [gender, setGender] = useState('');
   const [address, setAddress] = useState('');
   const [profile_image, setProfileImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('/default-avatar.png'); // your default image path
+  const [previewUrl, setPreviewUrl] = useState('./img/profile.webp'); // your default image path
 
 
   const [email, setEmail] = useState('');
@@ -83,10 +83,23 @@ export default function Signup() {
           <h2 className="text-2xl font-bold mb-6 text-center"
             style={{ color: 'skyblue', fontSize: '2rem', fontWeight: 'bold'}}>Create Account</h2>
           
+          <img
+            src={previewUrl}
+            alt="Profile Preview"
+            className="w-24 h-24 rounded-full object-cover mb-4 border border-white/20 shadow-md"
+            style={{ marginBottom: '1rem', borderRadius: '50%', width: '96px', height: '96px', objectFit: 'cover', border: '2px solid rgba(255, 255, 255, 0.2)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
+          />
+
           <input
             type="file"
             accept="image/*"
-            onChange={e => setProfileImage(e.target.files[0])}
+            onChange={e => {
+              const file = e.target.files[0];
+              setProfileImage(file);
+              if (file) {
+                setPreviewUrl(URL.createObjectURL(file)); // creates a temporary preview URL
+              }
+            }}
           />
 
           <input
