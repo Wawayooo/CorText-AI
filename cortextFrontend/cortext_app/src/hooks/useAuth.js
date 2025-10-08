@@ -1,13 +1,23 @@
 import { useState, useEffect } from 'react';
 
 export function useAuth() {
-  // You might need to ping a backend endpoint like /api/check-auth/
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch('http://192.168.56.1:8000/api/check-auth/', { credentials: 'include' })
-      .then(res => setIsLoggedIn(res.ok))
-      .catch(() => setIsLoggedIn(false));
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('http://192.168.56.1:8000/api/check-auth/', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        setIsLoggedIn(res.ok);
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   return { isLoggedIn };

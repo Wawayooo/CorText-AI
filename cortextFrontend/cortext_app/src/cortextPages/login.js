@@ -127,13 +127,6 @@ export default function Login({ onMagicRedirect }) {
     setLoading(true);
     setError('');
 
-    if (!email || !password) {
-      setError('Please enter both email and password.');
-      alert('Please enter both email and password.');
-      setLoading(false);
-      return;
-    }
-
     try {
       const res = await fetch('http://192.168.56.1:8000/api/login/', {
         method: 'POST',
@@ -145,7 +138,7 @@ export default function Login({ onMagicRedirect }) {
       const data = await res.json();
 
       if (data.step === 'admin_auth_required') {
-        alert('Admin access detected. Redirecting to secure login...');
+        alert('Admin access detected. Redirecting...');
         navigate('/admin-login');
         return;
       }
@@ -163,6 +156,7 @@ export default function Login({ onMagicRedirect }) {
     }
   };
 
+  
   return (
      <div className="flex items-center justify-center min-h-screen w-screen" style={MainDivStyle}>
       <motion.div
