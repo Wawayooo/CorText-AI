@@ -13,7 +13,7 @@ export default function Signup() {
 
   const handleSignup = async () => {
     if (!email || !password || !password2) {
-      alert('Please enter both email and password.');
+      alert('Fill all the fields to Sign-Up');
       return;
     }
 
@@ -136,7 +136,8 @@ const inputStyle = {
   backdropFilter: 'blur(10px)',
   WebkitBackdropFilter: 'blur(10px)',
   // Add focus styles
-  '&:focus': { borderColor: '#ffffffff', boxShadow: '0 0 0 3px rgba(39, 157, 190, 0.3)' }
+  '&:focus': { borderColor: '#ffffffff', boxShadow: '0 0 0 3px rgba(39, 157, 190, 0.3)' },
+  '&:hover': {cursor: 'pointer'}
 };
 
 const MotionButton = motion(styled.button`
