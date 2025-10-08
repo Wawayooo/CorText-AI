@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.56.1']
 
+LOGIN_URL = '/api/login/'  # Or wherever your login view lives
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,6 +67,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'CorTextCore.urls'
 
@@ -150,6 +153,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Use session-based authentication
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+SESSION_COOKIE_SECURE = False
 
 # Set session expiry to 3 days (in seconds)
 SESSION_COOKIE_AGE = 3 * 24 * 60 * 60  # 259200 seconds
