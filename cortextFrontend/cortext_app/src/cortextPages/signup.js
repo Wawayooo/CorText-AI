@@ -62,6 +62,7 @@ export default function Signup() {
       });
 
       if (response.ok) {
+        alert('✅Sign-up successful! Please log in.');
         navigate('/login');
       } else {
         alert('Sign-up failed. Please try again.');
