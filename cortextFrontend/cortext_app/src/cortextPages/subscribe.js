@@ -10,6 +10,9 @@ export default function SubscribePage() {
     if (!isLoggedIn) {
       navigate('/login');
     }
+    else{
+      console.log(document.cookie);
+    }
   }, [isLoggedIn, navigate]);
 
   return (
@@ -17,7 +20,7 @@ export default function SubscribePage() {
       <h1>Subscribe to CorText API</h1>
       <p>Choose a plan and get your API key to start integrating semantic medicine suggestions.</p>
 
-      <Link to="/adminDash">
+      <Link to="/dashboard">
         <button style={buttonStyle}>Go To Dashboard</button>
       </Link>
     </div>

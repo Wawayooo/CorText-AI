@@ -6,7 +6,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
 
   const handleAdminLogin = async () => {
-    const res = await fetch('/api/admin-login/', {
+    const res = await fetch('http://192.168.56.1:8000/api/admin-login/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',

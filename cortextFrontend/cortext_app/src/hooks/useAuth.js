@@ -5,7 +5,7 @@ export function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch('/api/check-auth/', { credentials: 'include' })
+    fetch('http://192.168.56.1:8000/api/check-auth/', { credentials: 'include' })
       .then(res => setIsLoggedIn(res.ok))
       .catch(() => setIsLoggedIn(false));
   }, []);

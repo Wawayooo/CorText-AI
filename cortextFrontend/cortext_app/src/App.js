@@ -5,8 +5,10 @@ import SubscribePage from './cortextPages/subscribe';
 import DocsPage from './cortextPages/docs';
 import Login from './cortextPages/login';
 import Signup from './cortextPages/signup';
-import AdminLogin from './cortextPages/adminlogin';
-import AdminDash from './cortextPages/adminDash';
+import Dashboard from './cortextPages/dashboard';
+
+import AdminLogin from './cortextPages/admin/adminlogin';
+import AdminDash from './cortextPages/admin/adminDash';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/docs" element={<DocsPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminDash" element={<AdminDash />} />
       </Routes>
