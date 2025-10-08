@@ -147,7 +147,7 @@ export default function Login({ onMagicRedirect }) {
       if (data.step === 'admin_auth_required') {
         // Optional: show cinematic feedback
         alert('Magic admin detected. Redirecting to secure login...');
-        navigate('/adminlogin'); // or call onMagicRedirect()
+        navigate('/admin-login'); // or call onMagicRedirect()
       } else if (data.message === 'User logged in') {
         navigate('/subscribe');
       } else {
