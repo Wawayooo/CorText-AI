@@ -10,6 +10,9 @@ export default function SubscribePage() {
     if (!isLoggedIn) {
       navigate('/login');
     }
+    else {
+      navigate('/adminDash');
+    }
   }, [isLoggedIn, navigate]);
 
   return (

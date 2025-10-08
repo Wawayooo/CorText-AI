@@ -145,14 +145,17 @@ export default function Login({ onMagicRedirect }) {
       const data = await res.json();
 
       if (data.step === 'admin_auth_required') {
-        // Optional: show cinematic feedback
-        alert('Magic admin detected. Redirecting to secure login...');
-        navigate('/admin-login'); // or call onMagicRedirect()
-      } else if (data.message === 'User logged in') {
-        navigate('/subscribe');
-      } else {
-        setError('Login failed. Please check your credentials.');
+        alert('Admin access detected. Redirecting to secure login...');
+        navigate('/admin-login');
+        return;
       }
+
+      if (data.message === 'User logged in') {
+        navigate('/subscribe');
+        return;
+      }
+
+      setError(data.error || 'Login failed. Please check your credentials.');
     } catch (err) {
       setError('Something went wrong. Please try again.');
     } finally {
