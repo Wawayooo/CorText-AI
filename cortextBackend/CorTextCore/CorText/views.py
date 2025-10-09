@@ -122,3 +122,28 @@ def check_auth(request):
 def logout_view(request):
     logout(request)
     return JsonResponse({'message': 'Logged out'})
+
+
+
+
+
+
+#------------------------------------------------------------------------------------------------------------------------------# 
+# The following codes are for the dashboard to fetch user details by email. :)------------------------------------------------------------------------------------------------------------------------------#
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import CustomUser
+from .serializers import CustomUserSerializer
+
+@api_view(['GET'])
+def get_user_profile(request):
+    user = request.user
+    serializer = CustomUserSerializer(user)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_user_by_email(request, email):
+    user = CustomUser.objects.get(email=email)
+    serializer = CustomUserSerializer(user)
+    return Response(serializer.data)

@@ -9,4 +9,8 @@ urlpatterns = [
     path('api/check-auth/', views.check_auth),
     path('api/logout/', views.logout_view),
     path('api/admin-login/', views.admin_login_view),
+    
+    path('api/profile/', views.get_user_profile),
+    path('api/user/<str:email>/', views.get_user_by_email),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
