@@ -16,7 +16,7 @@ const handleLogout = async () => {
   try {
     const response = await fetch('http://192.168.56.1:8000/api/logout/', {
       method: 'POST',
-      credentials: 'include', // ensures cookies/session are sent
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -24,9 +24,8 @@ const handleLogout = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data.message); // Optional: show "Logged out"
-      // Redirect or update UI
-      window.location.href = '/login'; // or use navigate('/login') if using React Router
+      console.log(data.message);
+      window.location.href = '/login';
     } else {
       console.error('Logout failed');
     }
