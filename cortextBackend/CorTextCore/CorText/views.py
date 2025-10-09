@@ -68,20 +68,19 @@ def login_view(request):
         email = data.get('email')
         password = data.get('password')
 
-        try:
-            user = CustomUser.objects.get(email=email)
-        except CustomUser.DoesNotExist:
-            return JsonResponse({'error': 'Email not found'}, status=404)
+        user = authenticate(request, email=email, password=password)
+        #print("Authenticated user:", request.user)
 
-        # 🔐 Check for admin redirect condition
+        if user is None:
+            return JsonResponse({'error': 'Invalid credentials'}, status=401)
+
+        login(request, user)  # ✅ Sets session cookie
+
+        # 🔐 Optional: Admin redirect logic
         if email == 'cortextai@admin.com' and user.is_admin:
             return JsonResponse({'step': 'admin_auth_required'})
 
-        if check_password(password, user.password):
-            login(request, user)
-            return JsonResponse({'message': 'User logged in'})
-        else:
-            return JsonResponse({'error': 'Invalid credentials'}, status=403)
+        return JsonResponse({'message': 'User logged in'})
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
@@ -131,19 +130,22 @@ def logout_view(request):
 #------------------------------------------------------------------------------------------------------------------------------# 
 # The following codes are for the dashboard to fetch user details by email. :)------------------------------------------------------------------------------------------------------------------------------#
 
-from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .models import CustomUser
 from .serializers import CustomUserSerializer
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_user_profile(request):
-    user = request.user
-    serializer = CustomUserSerializer(user)
+    #print("Session key:", request.session.session_key)
+    #print("User:", request.user)
+    if not request.user.is_authenticated:
+        return Response({'error': 'Not authenticated'}, status=403)
+    serializer = CustomUserSerializer(request.user)
     return Response(serializer.data)
 
-@api_view(['GET'])
-def get_user_by_email(request, email):
-    user = CustomUser.objects.get(email=email)
-    serializer = CustomUserSerializer(user)
-    return Response(serializer.data)
+
+
+
