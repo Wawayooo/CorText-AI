@@ -86,7 +86,6 @@ def login_view(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@csrf_exempt
 def admin_login_view(request):
     """
     Admin login using ManualAdmin username + password.
