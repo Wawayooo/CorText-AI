@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const styles = {
   container: {
@@ -330,50 +330,71 @@ export default function Dashboard() {
   const [showIdCard, setShowIdCard] = useState(false);
   const [hoveredImage, setHoveredImage] = useState(false);
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
+    setLoading(true);
     try {
-      const response = await fetch('/api/user/profile/', {
+      const csrftoken = getCookie('csrftoken');
+      const response = await fetch('http://192.168.56.1:8000/api/profile/', {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken || '',
         },
-        credentials: 'include'
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-      }
-
-      const data = await response.json();
-      setUser(data);
-      setLoading(false);
+      if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+      const userData = await response.json();
+      setUser(userData);
     } catch (err) {
       console.error('Error fetching user data:', err);
       setError(err.message);
+    } finally {
       setLoading(false);
-      
-      // Fallback to mock data
-      setUser({
-        first_name: 'Dr. Sarah',
-        last_name: 'Johnson',
-        email: 'dr.sarah.johnson@cortext.com',
-        age: 34,
-        gender: 'Female',
-        address: '456 Medical Plaza, Healthcare District, New York',
-        profile_image: null,
-        is_admin: true,
-        is_admin_magic: false
-      });
     }
-  };
+  }, []); // ✅ No dependencies, so it's stable
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]); // ✅ Warning gone
+
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://192.168.56.1:8000/api/logout/', {
+        method: 'POST',
+        credentials: 'include', // ensures cookies/session are sent
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message); // Optional: show "Logged out"
+        // Redirect or update UI
+        window.location.href = '/login'; // or use navigate('/login') if using React Router
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   const handleProfileClick = () => {
@@ -436,7 +457,7 @@ export default function Dashboard() {
         <div style={styles.profileImageContainer} onClick={handleProfileClick}>
           {user.profile_image ? (
             <img 
-              src={user.profile_image} 
+              src={`http://192.168.56.1:8000${user.profile_image}`}
               alt={`${user.first_name} ${user.last_name}`}
               style={hoveredImage ? styles.profileImageHover : styles.profileImage}
               onMouseEnter={() => setHoveredImage(true)}
@@ -491,7 +512,7 @@ export default function Dashboard() {
               <div style={styles.idCardImageSection}>
                 {user.profile_image ? (
                   <img 
-                    src={user.profile_image} 
+                    src={`http://192.168.56.1:8000${user.profile_image}`}
                     alt={`${user.first_name} ${user.last_name}`}
                     style={styles.idCardImage}
                   />
@@ -555,3 +576,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
