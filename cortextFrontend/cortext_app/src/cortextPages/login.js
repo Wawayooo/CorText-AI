@@ -144,7 +144,7 @@ export default function Login({ onMagicRedirect }) {
       }
 
       if (data.message === 'User logged in') {
-        navigate('/subscribe');
+        navigate('/dashboard');
         return;
       }
 

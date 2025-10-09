@@ -12,6 +12,29 @@ const features = [
   { name: 'Settings', icon: '⚙️' },
 ];
 
+const handleLogout = async () => {
+  try {
+    const response = await fetch('http://192.168.56.1:8000/api/logout/', {
+      method: 'POST',
+      credentials: 'include', // ensures cookies/session are sent
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message); // Optional: show "Logged out"
+      // Redirect or update UI
+      window.location.href = '/login'; // or use navigate('/login') if using React Router
+    } else {
+      console.error('Logout failed');
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+};
+
 export default function Dashboard() {
   return (
     <div style={styles.container}>
@@ -45,6 +68,7 @@ export default function Dashboard() {
           ))}
         </div>
       </section>
+      <button style={styles.buttonStyle} onClick={handleLogout}>Logout</button>
     </div>
   );
 }
@@ -149,5 +173,14 @@ const styles = {
   },
   featureIcon: {
     fontSize: '1.5rem',
+  },
+  buttonStyle: {
+    background: '#e21b09ff',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    padding: '8px 16px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
   },
 };

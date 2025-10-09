@@ -1,28 +1,11 @@
-import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 export default function SubscribePage() {
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/login');
-    }
-    else{
-      console.log(document.cookie);
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <div style={{ padding: '2rem' }}>
       <h1>Subscribe to CorText API</h1>
       <p>Choose a plan and get your API key to start integrating semantic medicine suggestions.</p>
-
-      <Link to="/dashboard">
-        <button style={buttonStyle}>Go To Dashboard</button>
-      </Link>
     </div>
   );
 }
