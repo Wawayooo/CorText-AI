@@ -29,7 +29,6 @@ def signup_view(request):
         if CustomUser.objects.filter(email=email).exists():
             return JsonResponse({'error': 'Email already exists'}, status=400)
 
-        # Password validation
         if len(password) < 8:
             return JsonResponse({'error': 'Password must be at least 8 characters long'}, status=400)
         if not any(char.isupper() for char in password):
@@ -76,7 +75,6 @@ def login_view(request):
 
         login(request, user)  # ✅ Sets session cookie
 
-        # 🔐 Optional: Admin redirect logic
         if email == 'cortextai@admin.com' and user.is_admin:
             return JsonResponse({'step': 'admin_auth_required'})
 
@@ -128,7 +126,7 @@ def logout_view(request):
 
 
 #------------------------------------------------------------------------------------------------------------------------------# 
-# The following codes are for the dashboard to fetch user details by email. :)------------------------------------------------------------------------------------------------------------------------------#
+# The following codes are for the dashboard to fetch user details :)------------------------------------------------------------------------------------------------------------------------------#
 
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
