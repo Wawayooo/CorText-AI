@@ -10,22 +10,26 @@ import Dashboard from './cortextPages/dashboard';
 import AdminLogin from './cortextPages/admin/adminlogin';
 import AdminDash from './cortextPages/admin/adminDash';
 
+import AppLayout from './cortextPages/AppLayout';
+
+export default App;
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/subscribe" element={<SubscribePage />} />
-        <Route path="/docs" element={<DocsPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/subscribe" element={<SubscribePage />} />
+          <Route path="/docs" element={<DocsPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/adminDash" element={<AdminDash />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/adminDash" element={<AdminDash />} />
+        </Route>
       </Routes>
     </Router>
   );
 }
-
-export default App;

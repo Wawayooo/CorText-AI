@@ -485,7 +485,7 @@ export default function Dashboard() {
 
         {sidePanelExpanded && (
           <>
-            <button style={styles.sideButton}>
+            <button style={styles.sideButton} onClick={() => window.location.href = '/subscribe'}>
               💳 Go to Subscribe
             </button>
             <button style={styles.logoutButton} onClick={handleLogout}>
