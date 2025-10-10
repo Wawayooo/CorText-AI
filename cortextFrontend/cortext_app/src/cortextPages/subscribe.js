@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import '../cortextPages_Styles/style.css';
 
 export default function SubscribePage() {
   const { isLoggedIn, loading } = useAuth();
@@ -23,9 +24,9 @@ export default function SubscribePage() {
 
   if (!delayedReady || loading) {
     return (
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <h2>Checking your session...</h2>
-        <p>Please wait while we prepare your CorText experience.</p>
+      <div style={loadingContainerStyle}>
+        <div style={spinnerStyle}></div>
+        <p style={loadingTextStyle}>Preparing your CorText experience...</p>
       </div>
     );
   }
@@ -42,6 +43,34 @@ export default function SubscribePage() {
   );
 }
 
+const spinnerStyle = {
+  display: 'inline-block',
+  width: '24px',
+  height: '24px',
+  border: '3px solid rgba(255, 255, 255, 0.3)',
+  borderTop: '3px solid #4B9CD3',
+  borderRadius: '50%',
+  animation: 'spin 0.8s linear infinite',
+  marginBottom: '1rem'
+};
+
+const loadingContainerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100vh',
+  backgroundColor: '#f4f8fc',
+  color: '#4B9CD3',
+  fontFamily: 'sans-serif'
+};
+
+const loadingTextStyle = {
+  fontSize: '1.2rem',
+  fontWeight: '500',
+  textAlign: 'center'
+};
+
 const buttonStyle = {
   marginTop: '2rem',
   padding: '1rem 2rem',
@@ -52,3 +81,4 @@ const buttonStyle = {
   border: 'none',
   cursor: 'pointer'
 };
+

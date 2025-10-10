@@ -1,43 +1,33 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Adjust path as needed
+import { useState, useEffect } from 'react';
 
-export default function SubscribePage() {
-  const { isLoggedIn, loading } = useAuth();
-  const navigate = useNavigate();
-  const [delayedReady, setDelayedReady] = useState(false);
+export function useAuth() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true); // Optional: for cinematic transitions
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDelayedReady(true);
-    }, 2000); // 2-second cinematic delay
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('http://192.168.56.1:8000/api/check-auth/', {
+          method: 'GET',
+          credentials: 'include',
+        });
 
-    return () => clearTimeout(timer);
+        if (res.ok) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (err) {
+        setError('Unable to verify session');
+        setIsLoggedIn(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  useEffect(() => {
-    if (delayedReady && !loading && !isLoggedIn) {
-      navigate('/login');
-    }
-  }, [delayedReady, loading, isLoggedIn, navigate]);
-
-  if (!delayedReady || loading) {
-    return (
-      <div style={loadingContainerStyle}>
-        <div style={spinnerStyle}></div>
-        <p style={loadingTextStyle}>Preparing your CorText experience...</p>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Subscribe to CorText API</h1>
-      <p>Choose a plan and get your API key to start integrating semantic medicine suggestions.</p>
-
-      <Link to="/plans">
-        <button style={buttonStyle}>View Plans</button>
-      </Link>
-    </div>
-  );
+  return { isLoggedIn, loading, error };
 }
