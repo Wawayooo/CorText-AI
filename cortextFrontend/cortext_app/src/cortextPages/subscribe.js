@@ -1,18 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Adjust path as needed
+import { useAuth } from '../hooks/useAuth';
 
 export default function SubscribePage() {
   const { isLoggedIn, loading } = useAuth();
   const navigate = useNavigate();
+  const [delayedReady, setDelayedReady] = useState(false);
 
   useEffect(() => {
-    if (!loading && !isLoggedIn) {
+    const timer = setTimeout(() => {
+      setDelayedReady(true);
+    }, 2000); // 2-second cinematic delay
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (delayedReady && !loading && !isLoggedIn) {
       navigate('/login');
     }
-  }, [loading, isLoggedIn, navigate]);
+  }, [delayedReady, loading, isLoggedIn, navigate]);
 
-  if (loading) return <p>Loading...</p>; // Optional: cinematic spinner
+  if (!delayedReady || loading) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <h2>Checking your session...</h2>
+        <p>Please wait while we prepare your CorText experience.</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '2rem' }}>
