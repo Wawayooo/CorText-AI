@@ -7,7 +7,53 @@ const stats = [
   { label: 'Revenue', value: '$4,500' },
 ];
 
+const styles = {
+  logoutButton: {
+    width: '100%',
+    padding: '0.9rem 1.5rem',
+    background: 'linear-gradient(45deg, #dc143c, #ff1744)',
+    border: '2px solid rgba(220, 20, 60, 0.5)',
+    borderRadius: '12px',
+    color: '#ffffff',
+    fontWeight: '700',
+    fontSize: '0.95rem',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(220, 20, 60, 0.3)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.5rem',
+  },
+};
+
 function AdminDash() {
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://192.168.56.1:8000/api/logout/', {
+        method: 'POST',
+        credentials: 'include', // ensures cookies/session are sent
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message); // Optional: show "Logged out"
+        // Redirect or update UI
+        window.location.href = '/login'; // or use navigate('/login') if using React Router
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
   return (
     <div
       style={{
@@ -22,9 +68,13 @@ function AdminDash() {
           background: '#fff',
           borderRadius: '12px',
           boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-          padding: '2rem 3rem',
+          padding: '6rem',
           maxWidth: '700px',
           margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2rem'
         }}
       >
         <h1
@@ -94,6 +144,9 @@ function AdminDash() {
             </div>
           ))}
         </div>
+        <button style={styles.logoutButton} onClick={handleLogout}>
+          🚪 Logout
+        </button>
       </div>
     </div>
   );

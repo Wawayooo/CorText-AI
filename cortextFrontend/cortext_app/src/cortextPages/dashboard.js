@@ -388,7 +388,7 @@ export default function Dashboard() {
         const data = await response.json();
         console.log(data.message); // Optional: show "Logged out"
         // Redirect or update UI
-        window.location.href = '/login'; // or use navigate('/login') if using React Router
+        window.location.href = '/';
       } else {
         console.error('Logout failed');
       }
@@ -502,7 +502,7 @@ export default function Dashboard() {
           <div style={styles.idCard}>
             <div style={styles.idCardHeader}>
               <div style={styles.idCardTitle}>
-                ⚕️ Medical ID Card
+                ⚕️ Profile Card
               </div>
               <button style={styles.closeButton} onClick={handleCloseIdCard}>
                 ×

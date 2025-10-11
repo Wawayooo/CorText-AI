@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MainDivStyle = {
-  background: 'linear-gradient(135deg, #ffffffff, #c6cacbff, #ffffffff)', 
+  background: 'linear-gradient(135deg, #0a304dff 0%, #1a3d5fff 25%, #0d1e52ff 50%, #16464aff 75%, #0a284dff 100%)',
   display: 'flex', 
   alignItems: 'center', 
   justifyContent: 'center', 
@@ -21,10 +21,29 @@ const MotionDivStyle = {
   alignItems: 'center', 
   justifyContent: 'center', 
   height: 'auto', 
-  backgroundColor: '#ffffffff', 
+  backgroundColor: 'rgba(255, 255, 255, 0.8)', 
   borderRadius: '1rem', 
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', 
   border: '1px solid rgba(255, 255, 255, 0.3)'
+}
+
+const InnerDiv = {
+  width: '100%', maxWidth: '500px', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+}
+
+const loginBox = {
+  width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+}
+
+const WelcomeTitle = {
+  fontSize: '2.5rem',
+  fontWeight: '700',
+  backgroundSize: '300% 300%',
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'black',
+  textTransform: 'uppercase',
+  letterSpacing: '3px',
 }
 
 const inputStyle = {
@@ -98,7 +117,7 @@ const LinkButton = styled.button`
   background: transparent;
   border: none;
   font-weight: 500;
-  color: #93c5fd; /* Tailwind's blue-300 */
+  color: blue;
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -115,6 +134,21 @@ const LinkButton = styled.button`
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
   }
 `;
+
+const linkStyle = {
+  display: 'block',
+  marginTop: '1.5rem',
+  textAlign: 'center',
+  color: 'red',
+  fontSize: '0.95rem',
+  textDecoration: 'none',
+  transition: 'all 0.3s ease',
+  fontWeight: '500',
+  
+  ':hover': {
+    textShadow: '0 0 10px rgba(192, 192, 192, 0.5)',
+  }
+};
 
 export default function Login({ onMagicRedirect }) {
   const [email, setEmail] = useState('');
@@ -166,12 +200,12 @@ export default function Login({ onMagicRedirect }) {
         transition={{ duration: 0.6 }}
         style={MotionDivStyle}
       >
-        <div className="w-full max-w-md bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-white border border-white/10" style={{ width: '100%', maxWidth: '500px', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <h2 className="text-4xl font-bold text-center mb-8 tracking-wide text-white drop-shadow-md">
+        <div className="w-full max-w-md bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-white border border-white/10" style={InnerDiv}>
+          <h2 className="text-4xl font-bold text-center mb-8 tracking-wide text-white drop-shadow-md" style={WelcomeTitle}>
             Welcome Back
           </h2>
 
-          <div className="space-y-6" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="space-y-6" style={loginBox}>
             <input
               type="email"
               placeholder="Email"
@@ -212,13 +246,13 @@ export default function Login({ onMagicRedirect }) {
           )}
 
           <FooterContainer>
-            <p>
+            <p style={{color: 'black'}}>
               Need an account?{' '}
               <LinkButton onClick={() => navigate('/signup')}>
                 Create Account
               </LinkButton>
             </p>
-            <NavButton onClick={() => navigate('/')}>
+            <NavButton onClick={() => navigate('/')} style={linkStyle}>
               Go to Homepage
             </NavButton>
           </FooterContainer>
