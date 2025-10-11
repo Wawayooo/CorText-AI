@@ -83,6 +83,7 @@ def login_view(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+@csrf_exempt
 def admin_login_view(request):
     """
     Admin login using ManualAdmin username + password.
@@ -95,16 +96,21 @@ def admin_login_view(request):
         username = data.get('username')
         password = data.get('password')
 
+        if not username or not password:
+            return JsonResponse({'error': 'Missing credentials'}, status=400)
+
         try:
             admin = ManualAdmin.objects.get(username=username)
         except ManualAdmin.DoesNotExist:
             return JsonResponse({'error': 'Admin not found'}, status=404)
 
-        if admin.password == password:
-            return JsonResponse({'message': 'Admin authenticated'})
+        if check_password(password, admin.password):
+            return JsonResponse({'message': 'Admin fully authenticated'})
         else:
             return JsonResponse({'error': 'Invalid admin credentials'}, status=403)
 
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON format'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
