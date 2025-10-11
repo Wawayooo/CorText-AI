@@ -40,7 +40,7 @@ export default function AdminLogin() {
     const data = await res.json();
     if (data.message === 'Admin fully authenticated') {
       // Redirect to admin dashboard
-      window.location.href = '/adminDashboard';
+      window.location.href = '/adminDash';
     } else {
       alert(data.error);
     }
